@@ -26,23 +26,8 @@
 
 ## 🚀 Как запустить
 
-Установка зависимостей:
+Для запуска достаточно установить зависимости и выполнить Python-скрипт (код доступен в репозитории).
 
-    pip install duckdb pandas pyarrow
+Установка зависимостей: `pip install duckdb pandas pyarrow`
 
-Код:
-
-    import duckdb
-
-    # Чтение CSV и агрегация
-    result = duckdb.sql("""
-        SELECT Country, SUM(UnitPrice * Quantity) as revenue
-        FROM read_csv_auto('online_retail.csv', header=True)
-        GROUP BY Country ORDER BY revenue DESC LIMIT 5
-    """).fetchall()
-
-    # Конвертация в Parquet
-    duckdb.sql("""
-        COPY (SELECT * FROM read_csv_auto('online_retail.csv', header=True))
-        TO 'retail.parquet' (FORMAT PARQUET)
-    """)
+Скрипт читает CSV, выполняет агрегацию и сохраняет результат в Parquet.
