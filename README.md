@@ -32,15 +32,18 @@
 pip install duckdb pandas pyarrow
 import duckdb
 ```
+```
 # Чтение CSV и агрегация
 result = duckdb.sql("""
     SELECT Country, SUM(UnitPrice * Quantity) as revenue
     FROM read_csv_auto('online_retail.csv', header=True)
     GROUP BY Country ORDER BY revenue DESC LIMIT 5
 """).fetchall()
-
+```
+```
 # Конвертация в Parquet
 duckdb.sql("""
     COPY (SELECT * FROM read_csv_auto('online_retail.csv', header=True))
     TO 'retail.parquet' (FORMAT PARQUET)
 """)
+```
